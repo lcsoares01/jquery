@@ -9,31 +9,30 @@
             text-decoration: line-through;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#addTaskForm').submit(function(event) {
+                event.preventDefault();
+                var taskName = $('#taskName').val();
+                if (taskName) {
+                    $('#taskList').append('<li>' + taskName + '</li>');
+                    $('#taskName').val('');
+                }
+            });
+
+            $('#taskList').on('click', 'li', function() {
+                $(this).toggleClass('completed');
+            });
+        });
+    </script>
 </head>
 <body>
     <h1>Lista de Tarefas</h1>
-    <form id="taskForm">
-        <input type="text" id="taskInput" placeholder="Adicione uma nova tarefa" required>
-        <button type="submit">Adicionar</button>
+    <form id="addTaskForm">
+        <input type="text" id="taskName" placeholder="Nome da tarefa">
+        <button type="submit">Adicionar Tarefa</button>
     </form>
     <ul id="taskList"></ul>
-
-    <script>
-        document.getElementById('taskForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const taskInput = document.getElementById('taskInput');
-            const taskText = taskInput.value;
-            if (taskText === '') return;
-
-            const li = document.createElement('li');
-            li.textContent = taskText;
-            li.addEventListener('click', function() {
-                li.classList.toggle('completed');
-            });
-
-            document.getElementById('taskList').appendChild(li);
-            taskInput.value = '';
-        });
-    </script>
 </body>
 </html>
